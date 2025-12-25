@@ -1,7 +1,7 @@
 <?php
 switch ($uri) {
     case 'dashboard/pusat':
-        require BASE_PATH . '/app/controllers/PusatDashboardController.php';
+        require BASE_PATH . '/app/controllers/dashboard/PusatDashboardController.php';
         (new PusatDashboardController)->index();
         exit;
 }
