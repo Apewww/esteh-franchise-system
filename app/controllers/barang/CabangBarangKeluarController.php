@@ -2,6 +2,6 @@
 class BarangKeluarController {
     
     function index() {
-        require 'app/views/barang/keluar/index.php';
+        require 'app/views/barang/cabang/keluar/index.php';
     }
 }
