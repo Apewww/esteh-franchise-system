@@ -2,7 +2,7 @@
 class CabangBarangMasukController {
 
     public function index() {
-        require 'app/views/barang/cabang/masuk/index.php';
+        require BASE_PATH . 'app/views/barang/cabang/masuk/index.php';
     }
 
 }

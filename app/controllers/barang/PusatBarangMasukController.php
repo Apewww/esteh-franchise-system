@@ -2,7 +2,7 @@
 class PusatBarangMasukController {
 
     public function index() {
-        require 'app/views/barang/pusat/masuk/index.php';
+        require BASE_PATH . 'app/views/barang/pusat/masuk/index.php';
     }
 
 }
