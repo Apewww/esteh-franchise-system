@@ -1,7 +1,8 @@
 <?php
-class BarangKeluarController {
+class CabangBarangKeluarController {
     
-    function index() {
-        require BASE_PATH . 'app/views/barang/cabang/keluar/index.php';
+    public function index() {
+        require BASE_PATH . '/app/views/barang/cabang/keluar/index.php';
     }
 }
+?>
