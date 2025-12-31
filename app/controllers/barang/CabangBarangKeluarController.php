@@ -2,6 +2,6 @@
 class BarangKeluarController {
     
     function index() {
-        require 'app/views/barang/cabang/keluar/index.php';
+        require BASE_PATH . 'app/views/barang/cabang/keluar/index.php';
     }
 }
