@@ -2,7 +2,7 @@
 class CabangKaryawanController {
 
     function index() {
-        require 'app/views/karyawan/cabang/index.php';
+        require BASE_PATH . 'app/views/karyawan/cabang/index.php';
     }
 
 }
