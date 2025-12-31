@@ -2,7 +2,7 @@
 class CabangTransaksiController {
 
     public function index() {
-        require 'app/views/transaksi/cabang/dashboard/index.php';
+        require BASE_PATH . 'app/views/transaksi/cabang/dashboard/index.php';
     }
 
 }
