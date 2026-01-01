@@ -1,8 +1,19 @@
 <?php
+
+require_once  __DIR__ . '/../RenderViewController.php';
+
 class CabangTransaksiController {
+    private $render;
+
+    public function __construct(){
+        $this->render = new RenderViewController();
+    }
 
     public function index() {
-        require BASE_PATH . 'app/views/transaksi/cabang/dashboard/index.php';
+        $data['title'] = 'Transaksi';
+        $data['role'] = 'Karyawan';
+
+        $this->render->render('transaksi/cabang/index', $data);
     }
 
 }

@@ -1,8 +1,19 @@
 <?php
-class PusatTransaksiController {
+
+require_once BASE_PATH . '../RenderViewController.php';
+
+class CabangTransaksiController {
+    private $render;
+
+    public function __construct(){
+        $this->render = new RenderViewController();
+    }
 
     public function index() {
-        require BASE_PATH . 'app/views/transaksi/pusat/dashboard/index.php';
+        $data['title'] = 'Transaksi';
+        $data['role'] = 'Karyawan';
+
+        $this->render->render('transaksi/cabang/index', $data);
     }
 
 }
