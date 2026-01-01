@@ -1,7 +1,7 @@
 <div class="topbar position-relative">
     <div class="d-flex align-items-center gap-3">
         <i class="bi bi-list fs-4" id="toggleSidebar" style="cursor:pointer;"></i>
-        <strong>Barang Keluar</strong>
+        <strong><?= isset($title) ? $title : 'Dashboard'; ?></strong>
     </div>
 
     <div class="search-wrapper">
