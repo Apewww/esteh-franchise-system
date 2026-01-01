@@ -1,6 +1,10 @@
 <?php
+$role = $_SESSION['role'];
 $current_page = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-// echo($current_page);
+
+function setActive($uri, $current) {
+    return ($current == $uri) ? 'active' : '';
+}
 ?>
 
 <div class="sidebar" id="sidebar">
@@ -9,11 +13,32 @@ $current_page = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     </div>
 
     <div class="sidebar-menu">
-        <a href="#" class="<?= ($current_page == '#') ? 'active' : '' ?>">Produk</a>
-        <a href="#" class="<?= ($current_page == '#') ? 'active' : '' ?>">Manajemen Barang</a>
-        <a href="#" class="<?= ($current_page == 'barang/cabang/masuk') ? 'active' : '' ?>">Barang Masuk</a>
-        <a href="#" class="<?= ($current_page == 'barang/cabang/keluar') ? 'active' : '' ?>">Barang Keluar</a>
-        <a href="#" class="<?= ($current_page == '#') ? 'active' : '' ?>">Transaksi</a>
-        <a href="#" class="<?= ($current_page == '#') ? 'active' : '' ?>">Manajemen Karyawan</a>
+
+        <?php if ($role == 'Franchisor'): ?>
+            <small class="text-muted ms-3">Manajemen Pusat</small>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Cabang</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Masuk</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Keluar</a>
+
+        <?php elseif ($role == 'Owner'): ?>
+            <small class="text-muted ms-3">Operasional Cabang</small>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Produk</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Masuk</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Keluar</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Karyawan</a>
+
+        <?php elseif ($role == 'Karyawan'): ?>
+            <small class="text-muted ms-3">Operasional Cabang</small>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Masuk</a>
+            <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Keluar</a>
+
+        <?php endif; ?>
+
     </div>
 </div>
