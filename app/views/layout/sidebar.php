@@ -1,5 +1,4 @@
 <?php
-$role = $_SESSION['role'];
 $current_page = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 function setActive($uri, $current) {
@@ -15,7 +14,7 @@ function setActive($uri, $current) {
     <div class="sidebar-menu">
 
         <?php if ($role == 'Franchisor'): ?>
-            <small class="text-muted ms-3">Manajemen Pusat</small>
+            <!-- <small class="text-muted ms-3">Manajemen Pusat</small> -->
             <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Cabang</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
@@ -23,7 +22,7 @@ function setActive($uri, $current) {
             <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Keluar</a>
 
         <?php elseif ($role == 'Owner'): ?>
-            <small class="text-muted ms-3">Operasional Cabang</small>
+            <!-- <small class="text-muted ms-3">Operasional Cabang</small> -->
             <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Produk</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
@@ -32,7 +31,7 @@ function setActive($uri, $current) {
             <a href="#" class="<?= setActive('#', $current_page) ?>">Karyawan</a>
 
         <?php elseif ($role == 'Karyawan'): ?>
-            <small class="text-muted ms-3">Operasional Cabang</small>
+            <!-- <small class="text-muted ms-3">Operasional Cabang</small> -->
             <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Masuk</a>
