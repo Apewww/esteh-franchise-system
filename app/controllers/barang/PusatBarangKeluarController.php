@@ -10,10 +10,10 @@ class PusatBarangKeluarController {
     }
 
     public function index() {
-        $data['tittle'] = "Manajemen Barang Keluar";
+        $data['title'] = "Manajemen Barang Keluar";
         $data['role'] = "Franchisor";
 
-        $this->render->render('barang/pusat/keluar/index.php', $data);
+        $this->render->render('barang/pusat/keluar/index', $data);
     }
 
 }
