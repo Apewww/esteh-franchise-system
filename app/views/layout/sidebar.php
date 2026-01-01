@@ -16,7 +16,6 @@ function setActive($uri, $current) {
         <?php if ($role == 'Franchisor'): ?>
             <!-- <small class="text-muted ms-3">Manajemen Pusat</small> -->
             <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
-            <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Cabang</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Masuk</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Keluar</a>
@@ -24,7 +23,6 @@ function setActive($uri, $current) {
         <?php elseif ($role == 'Owner'): ?>
             <!-- <small class="text-muted ms-3">Operasional Cabang</small> -->
             <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
-            <a href="#" class="<?= setActive('#', $current_page) ?>">Produk</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Masuk</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Barang Keluar</a>
