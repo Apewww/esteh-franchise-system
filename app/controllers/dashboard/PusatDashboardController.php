@@ -10,7 +10,9 @@ class PusatDashboardController
 
     public function __construct()
     {
+        if (session_status() === PHP_SESSION_NONE) {
         session_start();
+    }
         $this->render = new RenderViewController();
         $this->cabangModel = new CabangModel();
 
@@ -32,7 +34,7 @@ class PusatDashboardController
     {
         $data = [
             'title'  => 'Dashboard Pusat',
-            'role'   => 'Franchisor',
+            'role'   => $_SESSION['role'],
             'cabang' => $this->cabangModel->getAll()
         ];
 
@@ -43,7 +45,8 @@ class PusatDashboardController
     public function create()
     {
         $data = [
-            'title' => 'Tambah Cabang'
+            'title' => 'Tambah Cabang',
+            'role'   => $_SESSION['role'],
         ];
 
         $this->render->render('dashboard/pusat/create', $data);
@@ -61,6 +64,7 @@ class PusatDashboardController
 
         $data = [
             'title'  => 'Edit Cabang',
+            'role'   => $_SESSION['role'],
             'cabang' => $cabang
         ];
 

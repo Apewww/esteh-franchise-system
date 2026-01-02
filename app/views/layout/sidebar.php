@@ -13,7 +13,7 @@ function setActive($uri, $current) {
 
     <div class="sidebar-menu">
 
-        <?php if ($role == 'Franchisor'): ?>
+        <?php if ($role == 'pusat'): ?>
             <!-- <small class="text-muted ms-3">Manajemen Pusat</small> -->
             <a href="#" class="<?= setActive('#', $current_page) ?>">Dashboard</a>
             <a href="#" class="<?= setActive('#', $current_page) ?>">Manajemen Barang</a>

@@ -16,9 +16,7 @@ class AuthController
         $this->userModel = new UserModel();
     }
 
-    // ======================
     // TAMPILKAN HALAMAN LOGIN
-    // ======================
     public function login()
     {
         // Jika sudah login, langsung ke index dashboard
@@ -34,9 +32,7 @@ class AuthController
         require_once __DIR__ . '/../../views/auth/login.php';
     }
 
-    // ======================
     // PROSES LOGIN
-    // ======================
     public function processLogin()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -56,23 +52,19 @@ class AuthController
 
         $user = $this->userModel->findByUsername($username);
 
-        if (!$user || !password_verify($password, $user['password'])) {
+        if (!$user || $password!=$user['password']) {
             $_SESSION['error'] = 'Username atau password salah';
             header('Location: /login');
             exit;
         }
 
-        // ======================
         // SET SESSION LOGIN
-        // ======================
         $_SESSION['login']     = true;
         $_SESSION['id_user']   = $user['id_user'];
         $_SESSION['role']      = $user['role'];
         $_SESSION['id_cabang'] = $user['id_cabang'];
 
-        // ======================
         // MASUK KE INDEX DASHBOARD
-        // ======================
         if ($user['role'] === 'pusat') {
             header('Location: /dashboard/pusat');   // index pusat
         } else {
@@ -81,9 +73,7 @@ class AuthController
         exit;
     }
 
-    // ======================
     // LOGOUT
-    // ======================
     public function logout()
     {
         session_destroy();
