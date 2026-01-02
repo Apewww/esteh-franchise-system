@@ -82,7 +82,7 @@
             <?php endif; ?>
 
             <!-- FORM LOGIN -->
-            <form method="POST" action="/login">
+            <form method="POST" action="/login/process">
                 <div class="mb-3">
                     <input
                         type="text"
