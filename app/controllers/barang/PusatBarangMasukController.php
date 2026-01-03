@@ -1,8 +1,19 @@
 <?php
+
+require_once __DIR__ . '/../RenderViewController.php';
+
 class PusatBarangMasukController {
+    private $render;
+
+    public function __construct() {
+        $this->render = new RenderViewController();
+    }
 
     public function index() {
-        require BASE_PATH . 'app/views/barang/pusat/masuk/index.php';
+        $data['title'] = 'Barang Masuk';
+        $data['role'] = 'Franchisor';
+
+        $this->render->render('barang/pusat/masuk/index', $data);
     }
 
 }
