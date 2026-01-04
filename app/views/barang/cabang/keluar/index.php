@@ -16,6 +16,7 @@
                     <th>ID Barang</th>
                     <th>Tujuan</th>
                     <th>Jumlah</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,20 @@
                             <td><?= $row['id_barang']; ?></td>
                             <td><?= $row['tujuan_barang']; ?></td>
                             <td><?= $row['jumlah']; ?></td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="/barang/cabang/keluar/edit/<?= $row['id_keluar']; ?>"
+                                       class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a href="/barang/cabang/keluar/delete/<?= $row['id_keluar']; ?>"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
