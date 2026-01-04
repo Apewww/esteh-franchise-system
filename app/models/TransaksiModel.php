@@ -6,14 +6,14 @@ class TransaksiModel extends Model
 {
     protected $table = 'transaksi';
 
-    // Ambil semua transaksi (PUSAT)
+    // Mengambil seluruh transaksi (untuk admin pusat)
     public function getAll()
     {
         $sql = "SELECT * FROM transaksi ORDER BY tanggal_transaksi DESC";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Ambil transaksi berdasarkan cabang
+    // mengambil transaksi berdasarkan cabang tertentu
     public function getByCabang($id_cabang)
     {
         $sql = "SELECT * FROM {$this->table} 
@@ -25,7 +25,7 @@ class TransaksiModel extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Tambah transaksi
+    // Tambah transaksi baru
     public function insert($data)
     {
         $sql = "INSERT INTO transaksi (id_cabang, total)
@@ -37,7 +37,8 @@ class TransaksiModel extends Model
     ]);
     }
 
-    public function getAllWithProduk()
+    //Mengambil transaksi beserta daftar produk di dalamnya
+    public function getAllWithProduk()      
     {
         $sql = "
             SELECT 
@@ -56,6 +57,7 @@ class TransaksiModel extends Model
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //Menghapus transaksi berdasarkan id_transaksi
     public function delete($id)
     {
         $sql = "DELETE FROM transaksi WHERE id_transaksi = :id";
@@ -63,6 +65,7 @@ class TransaksiModel extends Model
         return $stmt->execute(['id' => $id]);
     }
 
+    //Mengambil 1 transaksi berdasarkan ID
     public function find($id)
     {
         $sql = "SELECT * FROM transaksi WHERE id_transaksi = :id";
@@ -71,6 +74,7 @@ class TransaksiModel extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    //Mengupdate nilai total pada transaksi
     public function updateTotal($id, $total)
     {
         $sql = "UPDATE transaksi SET total = :total WHERE id_transaksi = :id";
@@ -81,6 +85,7 @@ class TransaksiModel extends Model
         ]);
     }
 
+    //Mengambil 1 transaksi berdasarkan ID
     public function getById($id)
     {
         $sql = "SELECT * FROM transaksi WHERE id_transaksi = :id";

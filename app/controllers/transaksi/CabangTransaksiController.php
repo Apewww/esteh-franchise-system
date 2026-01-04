@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../models/TransaksiModel.php';
 require_once __DIR__ . '/../../models/DetailTransaksiModel.php';
 require_once __DIR__ . '/../../models/ProdukModel.php';
 
-class CabangTransaksiController
+class CabangTransaksiController             //Deklarasi Class & Properti
 {
     private $render;
     private $transaksi;
@@ -19,7 +19,7 @@ class CabangTransaksiController
         $this->detail = new DetailTransaksiModel();
     }
 
-    public function index()
+    public function index()             //Menampilkan Transaksi Cabang
     {
         $id_cabang = 1;
 
@@ -33,7 +33,7 @@ class CabangTransaksiController
         $this->render->render('transaksi/cabang/index', $data);
     }
 
-    public function create()
+    public function create()            //Form Tambah Transaksi Cabang
     {
         $data = [];
         $data['title'] = 'Tambah Transaksi';
@@ -41,7 +41,7 @@ class CabangTransaksiController
         $this->render->render('transaksi/cabang/create', $data);
     }
 
-    public function store()
+    public function store()             //Simpan Transaksi Baru
     {
         $data = [
             'id_cabang' => 1,
@@ -74,14 +74,14 @@ class CabangTransaksiController
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function delete($id)
+    public function delete($id)         //Hapus Transaksi
     {
         $this->transaksi->delete($id);
         header('Location: /transaksi/cabang');
         exit;
     }
 
-    public function edit($id)
+    public function edit($id)           //Form Edit Transaksi
     {
         $data['transaksi'] = $this->transaksi->find($id);
         $data['detail'] = $this->detail->getByTransaksi($id);
@@ -90,18 +90,18 @@ class CabangTransaksiController
         $this->render->render('transaksi/cabang/edit', $data);
     }
 
-    public function update($id)
+    public function update($id)         //Update Transaksi
     {
         // hapus detail lama
         $this->detail->deleteByTransaksi($id);
 
-        $total = 0;
+        $total = 0;                     //Hitung Ulang Total
 
         foreach ($_POST['produk'] as $i => $id_produk) {
             $subtotal = $_POST['subtotal'][$i];
             $total += $subtotal;
 
-            $this->detail->insert([
+            $this->detail->insert([     //Simpan Detail Baru
                 'id_transaksi' => $id,
                 'id_produk' => $id_produk,
                 'jumlah' => $_POST['jumlah'][$i],
