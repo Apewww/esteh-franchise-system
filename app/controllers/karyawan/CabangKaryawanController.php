@@ -12,6 +12,20 @@ class CabangKaryawanController {
     }
 
     public function index() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            if (!empty($_POST['id_karyawan'])) {
+            $this->model->update($_POST['id_karyawan'], $_POST);
+            }
+
+            else {
+            $this->model->insert($_POST);
+            }
+
+            header('Location: /karyawan/cabang');
+            exit;
+        }
+
         $data['title'] = 'Manajemen Karyawan';
         $data['role'] = 'Owner';
         $data['karyawan'] = $this->karyawanModel->getKaryawanByCabang(1);
