@@ -5,3 +5,5 @@ require_once BASE_PATH . '/routes/barang/CabangMasuk.php';
 require_once BASE_PATH . '/routes/barang/PusatMasuk.php';
 require_once BASE_PATH . '/routes/karyawan/CabangKaryawan.php';
 require_once BASE_PATH . '/routes/karyawan/PusatKaryawan.php';
+require_once BASE_PATH . '/routes/barang/CabangDasboard.php';
+require_once BASE_PATH . '/routes/barang/PusatDashboard.php';
