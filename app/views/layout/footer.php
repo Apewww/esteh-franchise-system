@@ -17,6 +17,25 @@
             sidebar.classList.add("hide");
         }
     });
+
+    document.getElementById('gambar').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        
+        if (!file) return;
+        
+        const reader = new FileReader();
+        
+        reader.onload = function (e) {
+            const previewImage = document.getElementById('previewImage');
+            const plusIcon = document.getElementById('plusIcon');
+        
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+            plusIcon.style.display = 'none';
+        };
+    
+        reader.readAsDataURL(file);
+    });
 </script>
 
 </body>
