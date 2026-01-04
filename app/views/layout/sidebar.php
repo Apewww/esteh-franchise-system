@@ -8,7 +8,7 @@ function setActive($uri, $current) {
 
 <div class="sidebar" id="sidebar">
     <div class="logo">
-        <img src="logo-esteh.png" alt="Logo Es Teh">
+        <img src="/assets/img/logo.png" alt="Logo Es Teh">
     </div>
 
     <div class="sidebar-menu">
