@@ -1,182 +1,95 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Cabang</title>
+<div class="card card-custom shadow-sm">
+    <div class="card-body">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <h5 class="mb-4">Manajemen Karyawan</h5>
 
-    <style>
-        body {
-            background: #f7f7f7;
-        }
+        <!-- FORM TAMBAH DATA -->
+        <form method="post" class="row g-3 align-items-end mb-4">
 
-        .sidebar {
-            width: 240px;
-            min-height: 100vh;
-            background: #b6ffad;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
+            <!-- penting: action create -->
+            <input type="hidden" name="action" value="create">
 
-        .sidebar.hide {
-            margin-left: -240px;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .logo img {
-            width: 120px;
-            height: auto;
-        }
-
-        .sidebar-menu {
-            margin-top: 40px;
-        }
-
-        .sidebar-menu a {
-            display: block;
-            padding: 10px 15px;
-            border-radius: 20px;
-            color: #000;
-            text-decoration: none;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .sidebar-menu a.active,
-        .sidebar-menu a:hover {
-            background: #ffffff;
-        }
-
-        .content {
-            padding: 20px 30px;
-            width: 100%;
-        }
-
-        .topbar {
-            background: #ffffff;
-            padding: 12px 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-wrapper {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 420px;
-        }
-
-        .search-input {
-            border-radius: 20px;
-            padding-left: 40px;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #aaa;
-        }
-
-        .btn-add {
-            border-radius: 20px;
-        }
-
-        .card-custom {
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        table th {
-            background: #e0e0e0;
-        }
-
-        .avatar {
-            width: 35px;
-            height: 35px;
-            background: #ddd;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="d-flex">
-
-    <div class="sidebar" id="sidebar">
-
-        <div class="logo">
-            <img src="logo-esteh.png" alt="Logo Es Teh">
-        </div>
-
-        <div class="sidebar-menu">
-            <a href="#">Produk</a>
-            <a href="#">Manajemen Barang</a>
-            <a href="#">Barang Masuk</a>
-            <a href="#">Barang Keluar</a>
-            <a href="#">Transaksi</a>
-            <a href="#" class="active">Manajemen Karyawan</a>
-        </div>
-    </div>
-
-    <div class="content">
-
-        <div class="topbar position-relative">
-
-            <div class="d-flex align-items-center gap-3">
-                <i class="bi bi-list fs-4" id="toggleSidebar" style="cursor:pointer;"></i>
-                <strong>Manajemen Karyawan</strong>
+            <div class="col-md-3">
+                <input type="text" name="nama_karyawan"
+                       class="form-control"
+                       placeholder="Nama Karyawan" required>
             </div>
 
-            <div class="search-wrapper">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" class="form-control search-input" placeholder="Cari...">
+            <div class="col-md-3">
+                <input type="text" name="jabatan"
+                       class="form-control"
+                       placeholder="Jabatan" required>
             </div>
 
-            <div class="d-flex align-items-center gap-3 ms-auto">
-                <button class="btn btn-light btn-add">Tambah</button>
-                <div class="avatar"></div>
+            <div class="col-md-3">
+                <input type="text" name="id_cabang"
+                       class="form-control"
+                       placeholder="Cabang" value="1" required>
             </div>
 
-        </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">
+                    Tambah Data
+                </button>
+            </div>
 
-        <div class="card card-custom">
-            <div class="card-body">
-                <table class="table align-middle text-center">
-                    <thead>
+        </form>
+
+        <!-- TABEL -->
+        <div class="table-responsive">
+            <table class="table align-middle text-center">
+                <thead style="background:#e5e5e5;">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Cabang</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                <?php if (!empty($karyawan)): ?>
+                    <?php foreach ($karyawan as $t): ?>
                         <tr>
-                            
+                            <td><?= $t['id_karyawan']; ?></td>
+                            <td><?= $t['nama_karyawan']; ?></td>
+                            <td><?= $t['jabatan']; ?></td>
+                            <td><?= $t['id_cabang']; ?></td>
+                            <td>
+
+                                <!-- EDIT -->
+                                <form method="post" style="display:inline">
+                                    <input type="hidden" name="action" value="update">
+                                    <input type="hidden" name="id_karyawan" value="<?= $t['id_karyawan']; ?>">
+                                    <input type="hidden" name="nama_karyawan" value="<?= $t['nama_karyawan']; ?>">
+                                    <input type="hidden" name="jabatan" value="<?= $t['jabatan']; ?>">
+                                    <input type="hidden" name="id_cabang" value="<?= $t['id_cabang']; ?>">
+                                    <button class="btn btn-warning btn-sm">Edit</button>
+                                </form>
+
+                                <!-- DELETE -->
+                                <form method="post" style="display:inline">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="id_karyawan" value="<?= $t['id_karyawan']; ?>">
+                                    <button class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Hapus data ini?')">
+                                        Hapus
+                                    </button>
+                                </form>
+
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5">Data karyawan belum ada</td>
+                    </tr>
+                <?php endif; ?>
+
+                </tbody>
+            </table>
         </div>
 
     </div>
 </div>
-
-<script>
-    const toggleBtn = document.getElementById("toggleSidebar");
-    const sidebar = document.getElementById("sidebar");
-
-    toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("hide");
-    });
-</script>
-
-</body>
-</html>
