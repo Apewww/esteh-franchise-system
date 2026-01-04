@@ -1,8 +1,6 @@
 <div class="card card-custom">
     <div class="card-body">
 
-        <h5 class="mb-3">Manajemen Karyawan</h5>
-
         <table class="table text-center">
             <thead>
                 <tr>
