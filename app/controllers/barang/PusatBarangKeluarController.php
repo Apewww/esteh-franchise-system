@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../RenderViewController.php';
-require_once __DIR__ . '/../../models/BarangModel.php';
+require_once __DIR__ . '/../../models/BarangKeluarModel.php';
 
 class PusatBarangKeluarController {
     private $render;
