@@ -1,16 +1,25 @@
-<div class="topbar position-relative">
+<div class="topbar position-relative d-flex align-items-center">
+
+    <!-- KIRI -->
     <div class="d-flex align-items-center gap-3">
-        <i class="bi bi-list fs-4" id="toggleSidebar" style="cursor:pointer;"></i>
-        <strong><?= isset($title) ? $title : 'Dashboard'; ?></strong>
+        <i class="bi bi-list fs-4" style="cursor:pointer;"></i>
+        <strong><?= $title ?? 'Transaksi'; ?></strong>
     </div>
 
-    <div class="search-wrapper">
+    <!-- TENGAH -->
+    <div class="search-wrapper mx-auto">
         <i class="bi bi-search search-icon"></i>
-        <input type="text" class="form-control search-input" placeholder="Cari...">
+        <input type="text" class="form-control search-input" placeholder="Search">
     </div>
 
-    <div class="d-flex align-items-center gap-3 ms-auto">
-        <button class="btn btn-light btn-add">Tambah</button>
+    <!-- KANAN -->
+    <div class="d-flex align-items-center gap-3">
+        <?php if (!empty($addUrl)): ?>
+            <a href="<?= $addUrl ?>" class="btn btn-light btn-add">
+                Tambah
+            </a>
+        <?php endif; ?>
         <div class="avatar"></div>
     </div>
+
 </div>

@@ -17,15 +17,16 @@
         .sidebar-menu { margin-top: 40px; }
         .sidebar-menu a { display: block; padding: 10px 15px; border-radius: 20px; color: #000; text-decoration: none; margin-bottom: 10px; font-size: 14px; }
         .sidebar-menu a.active, .sidebar-menu a:hover { background: #ffffff; }
-        .content { padding: 20px 30px; width: 100%; transition: all 0.3s ease; }
+        .content { padding: 20px 30px; width: 100%; margin-left: 0; }
         .topbar { background: #ffffff; padding: 12px 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; align-items: center; }
-        .search-wrapper { position: absolute; left: 50%; transform: translateX(-50%); width: 420px; }
+        .search-wrapper { position: relative; margin-left: auto; width: 320px; }
         .search-input { border-radius: 20px; padding-left: 40px; }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #aaa; }
         .btn-add { border-radius: 20px; }
         .card-custom { border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: none; }
-        table th { background: #e0e0e0 !important; }
+        .table th { background: #e0e0e0 !important; }
         .avatar { width: 35px; height: 35px; background: #ddd; border-radius: 50%; }
+        .topbar-global { display: none;}
     </style>
 </head>
 <body>
