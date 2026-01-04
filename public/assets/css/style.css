@@ -8,10 +8,10 @@
 body { background: #f7f7f7; }
 .sidebar { width: 240px; min-height: 100vh; background: #b6ffad; padding: 20px; transition: all 0.3s ease; }
 .sidebar.hide { margin-left: -240px; }
-.logo { display: flex; align-items: center;  gap: 10px; }
-.logo img { width: 120px; height: auto; }
+.logo { display: flex; align-items: center; }
+.logo img { width: 100px; height: auto; }
 .logo-text {font-family: 'Aboreto', sans-serif; font-size: 18px; font-weight: 600; }
-.sidebar-menu { margin-top: 40px; }
+.sidebar-menu { margin-top: 25px; }
 .sidebar-menu a { display: block; padding: 10px 15px; border-radius: 20px; color: #000; text-decoration: none; margin-bottom: 10px; font-size: 14px; }
 .sidebar-menu a.active, .sidebar-menu a:hover { background: #ffffff; }
 .content { padding: 20px 30px; width: 100%; transition: all 0.3s ease; }
