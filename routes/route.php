@@ -9,3 +9,5 @@ require_once BASE_PATH . '/routes/barang/CabangDasboard.php';
 require_once BASE_PATH . '/routes/barang/PusatDashboard.php';
 require_once BASE_PATH . '/routes/transaksi/CabangTransaksi.php';
 require_once BASE_PATH . '/routes/transaksi/PusatTransaksi.php';
+require_once BASE_PATH . '/routes/auth/auth.php';
+require_once BASE_PATH . '/routes/dashboard/PusatDashboard.php';

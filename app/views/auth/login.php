@@ -56,16 +56,11 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        .form-control:focus {
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
         .btn-login {
             border-radius: 30px;
             padding: 10px 30px;
             box-shadow: 0 5px 12px rgba(0,0,0,0.2);
         }
-
     </style>
 </head>
 
@@ -79,16 +74,36 @@
                 <i class="bi bi-person-fill"></i>
             </div>
 
-            <form>
+            <!-- PESAN ERROR -->
+            <?php if (!empty($_SESSION['error'])): ?>
+                <div class="alert alert-danger">
+                    <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- FORM LOGIN -->
+            <form method="POST" action="/login/process">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Username">
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control"
+                        placeholder="Username"
+                        required
+                    >
                 </div>
 
                 <div class="mb-4">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                    >
                 </div>
 
-                <button type="submit" class="btn btn-light btn-login">
+                <button type="submit" class="btn btn-light btn-login w-100">
                     Login
                 </button>
             </form>

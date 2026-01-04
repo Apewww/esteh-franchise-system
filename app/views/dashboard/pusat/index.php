@@ -1,187 +1,51 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Cabang</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-    <style>
-        body {
-            background: #f7f7f7;
-        }
-
-        .sidebar {
-            width: 240px;
-            min-height: 100vh;
-            background: #b6ffad;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar.hide {
-            margin-left: -240px;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .logo img {
-            width: 120px;
-            height: auto;
-        }
-
-        .sidebar-menu {
-            margin-top: 40px;
-        }
-
-        .sidebar-menu a {
-            display: block;
-            padding: 10px 15px;
-            border-radius: 20px;
-            color: #000;
-            text-decoration: none;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .sidebar-menu a.active,
-        .sidebar-menu a:hover {
-            background: #ffffff;
-        }
-
-        .content {
-            padding: 20px 30px;
-            width: 100%;
-        }
-
-        .topbar {
-            background: #ffffff;
-            padding: 12px 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-wrapper {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 420px;
-        }
-
-        .search-input {
-            border-radius: 20px;
-            padding-left: 40px;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #aaa;
-        }
-
-        .btn-add {
-            border-radius: 20px;
-        }
-
-        .card-custom {
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        table th {
-            background: #e0e0e0;
-        }
-
-        .avatar {
-            width: 35px;
-            height: 35px;
-            background: #ddd;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="d-flex">
-
-    <div class="sidebar" id="sidebar">
-
-        <div class="logo">
-            <img src="logo-esteh.png" alt="Logo Es Teh">
+<div class="card card-custom">
+    <div class="card-body">
+        <div class="d-flex justify-content-end mb-3">
+            <a href="/dashboard/pusat/create" class="btn btn-success">
+                + Tambah Cabang
+            </a>
         </div>
+        <table class="table table-bordered table-striped align-middle text-center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Cabang</th>
+                    <th>Kota</th>
+                    <th>Telp</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
 
-        <div class="sidebar-menu">
-            <a href="#" class="active">Data Cabang</a>
-            <a href="#">Manajemen Barang</a>
-            <a href="#">Barang Masuk</a>
-            <a href="#">Barang Keluar</a>
-            <a href="#">Transaksi</a>
-            <a href="#">Manajemen Karyawan</a>
-        </div>
-    </div>
+            <tbody>
+            <?php if (!empty($cabang)): ?>
+                <?php foreach ($cabang as $row): ?>
+                    <tr>
+                        <td><?= $row['id_cabang']; ?></td>
+                        <td><?= htmlspecialchars($row['nama_cabang']); ?></td>
+                        <td><?= htmlspecialchars($row['kota']); ?></td>
+                        <td><?= htmlspecialchars($row['no_telp']); ?></td>
+                        <td><?= htmlspecialchars($row['alamat_cabang']); ?></td>
+                        <td>
+                            <a href="/dashboard/pusat/edit/<?= $row['id_cabang']; ?>" class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+                            <a href="/dashboard/pusat/delete/<?= $row['id_cabang']; ?>"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Hapus cabang ini?')">
+                                Hapus
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">Data cabang belum tersedia</td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
 
-    <div class="content">
-
-        <div class="topbar position-relative">
-
-            <div class="d-flex align-items-center gap-3">
-                <i class="bi bi-list fs-4" id="toggleSidebar" style="cursor:pointer;"></i>
-                <strong>Data Cabang</strong>
-            </div>
-
-            <div class="search-wrapper">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" class="form-control search-input" placeholder="Cari...">
-            </div>
-
-            <div class="d-flex align-items-center gap-3 ms-auto">
-                <button class="btn btn-light btn-add">Tambah</button>
-                <div class="avatar"></div>
-            </div>
-
-        </div>
-
-        <div class="card card-custom">
-            <div class="card-body">
-                <table class="table align-middle text-center">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nama Cabang</th>
-                            <th>Kota</th>
-                            <th>Telp</th>
-                            <th>Alamat</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </table>
 
     </div>
 </div>
-
-<script>
-    const toggleBtn = document.getElementById("toggleSidebar");
-    const sidebar = document.getElementById("sidebar");
-
-    toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("hide");
-    });
-</script>
-
-</body>
-</html>
