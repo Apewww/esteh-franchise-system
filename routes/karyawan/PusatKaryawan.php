@@ -1,7 +1,6 @@
 <?php
-switch ($uri) {
-    case 'karyawan/pusat':
-        require BASE_PATH . '/app/controllers/karyawan/PusatKaryawanController.php';
-        (new PusatKaryawanController)->index();
-        exit;
-}
+
+require_once BASE_PATH . '/app/controllers/karyawan/PusatKaryawanController.php';
+
+$controller = new PusatKaryawanController();
+$controller->index();
