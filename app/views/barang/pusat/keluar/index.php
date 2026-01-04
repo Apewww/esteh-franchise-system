@@ -1,182 +1,57 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Cabang</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-    <style>
-        body {
-            background: #f7f7f7;
-        }
-
-        .sidebar {
-            width: 240px;
-            min-height: 100vh;
-            background: #b6ffad;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar.hide {
-            margin-left: -240px;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .logo img {
-            width: 120px;
-            height: auto;
-        }
-
-        .sidebar-menu {
-            margin-top: 40px;
-        }
-
-        .sidebar-menu a {
-            display: block;
-            padding: 10px 15px;
-            border-radius: 20px;
-            color: #000;
-            text-decoration: none;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .sidebar-menu a.active,
-        .sidebar-menu a:hover {
-            background: #ffffff;
-        }
-
-        .content {
-            padding: 20px 30px;
-            width: 100%;
-        }
-
-        .topbar {
-            background: #ffffff;
-            padding: 12px 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-wrapper {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 420px;
-        }
-
-        .search-input {
-            border-radius: 20px;
-            padding-left: 40px;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #aaa;
-        }
-
-        .btn-add {
-            border-radius: 20px;
-        }
-
-        .card-custom {
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        table th {
-            background: #e0e0e0;
-        }
-
-        .avatar {
-            width: 35px;
-            height: 35px;
-            background: #ddd;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="d-flex">
-
-    <div class="sidebar" id="sidebar">
-
-        <div class="logo">
-            <img src="logo-esteh.png" alt="Logo Es Teh">
-        </div>
-
-        <div class="sidebar-menu">
-            <a href="#">Produk</a>
-            <a href="#">Manajemen Barang</a>
-            <a href="#">Barang Masuk</a>
-            <a href="#" class="active">Barang Keluar</a>
-            <a href="#">Transaksi</a>
-            <a href="#">Manajemen Karyawan</a>
-        </div>
+<form action="/barang/cabang/keluar/add" method="POST" class="mb-4">
+    <div class="row">
+        <div class="col"><input type="text" name="id_cabang" class="form-control" placeholder="ID Cabang" required></div>
+        <div class="col"><input type="text" name="id_barang" class="form-control" placeholder="ID Barang" required></div>
+        <div class="col"><input type="text" name="tujuan_barang" class="form-control" placeholder="Tujuan" required></div>
+        <div class="col"><input type="number" name="jumlah" class="form-control" placeholder="Jumlah" required></div>
+        <div class="col"><button type="submit" class="btn btn-primary">Tambah Data</button></div>
     </div>
+</form>
 
-    <div class="content">
-
-        <div class="topbar position-relative">
-
-            <div class="d-flex align-items-center gap-3">
-                <i class="bi bi-list fs-4" id="toggleSidebar" style="cursor:pointer;"></i>
-                <strong>Barang Keluar</strong>
-            </div>
-
-            <div class="search-wrapper">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" class="form-control search-input" placeholder="Cari...">
-            </div>
-
-            <div class="d-flex align-items-center gap-3 ms-auto">
-                <button class="btn btn-light btn-add">Tambah</button>
-                <div class="avatar"></div>
-            </div>
-
-        </div>
-
-        <div class="card card-custom">
-            <div class="card-body">
-                <table class="table align-middle text-center">
-                    <thead>
+<div class="card card-custom">
+    <div class="card-body">
+        <table class="table align-middle text-center">
+            <thead>
+                <tr>
+                    <th>ID Keluar</th>
+                    <th>ID Cabang</th>
+                    <th>ID Barang</th>
+                    <th>Tujuan</th>
+                    <th>Jumlah</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($data['barang_keluar'])) : ?>
+                    <?php foreach ($data['barang_keluar'] as $row) : ?>
                         <tr>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                            <td><?= $row['id_keluar']; ?></td>
+                            <td><?= $row['id_cabang']; ?></td>
+                            <td><?= $row['id_barang']; ?></td>
+                            <td><?= $row['tujuan_barang']; ?></td>
+                            <td><?= $row['jumlah']; ?></td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="/barang/cabang/keluar/edit/<?= $row['id_keluar']; ?>"
+                                       class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
 
+                                    <a href="/barang/pusat/keluar/delete/<?= $row['id_keluar']; ?>"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="4">Data Kosong</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
 </div>
-
-<script>
-    const toggleBtn = document.getElementById("toggleSidebar");
-    const sidebar = document.getElementById("sidebar");
-
-    toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("hide");
-    });
-</script>
-
-</body>
-</html>
