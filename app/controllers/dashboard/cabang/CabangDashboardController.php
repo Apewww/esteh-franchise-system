@@ -50,7 +50,6 @@ class CabangDashboardController {
 
             $ext = strtolower(pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION));
 
-            // Nama file = ID produk
             $namaFile = $id_produk . '.' . $ext;
 
             move_uploaded_file(
@@ -58,7 +57,6 @@ class CabangDashboardController {
                 $folder . $namaFile
             );
 
-            // Update DB
             $this->produkModel->updateGambar($id_produk, $namaFile);
         }
 

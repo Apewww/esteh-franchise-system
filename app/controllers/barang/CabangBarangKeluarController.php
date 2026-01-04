@@ -23,10 +23,11 @@ class CabangBarangKeluarController {
     public function addBarangkeluar() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id_barang = $_POST['id_barang'];
+            $id_cabang = $_POST['id_cabang'];
             $tujuan = $_POST['tujuan_barang'];
             $jumlah = $_POST['jumlah'];
 
-            if ($this->barangModel->tambahKeluar($id_barang, $tujuan, $jumlah)) {
+            if ($this->barangModel->tambahKeluar($id_cabang, $id_barang, $tujuan, $jumlah)) {
                 header('Location: /barang/cabang/keluar');
             }
         }
@@ -45,6 +46,7 @@ class CabangBarangKeluarController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $id_keluar = $_POST['id_keluar'];
+            $id_cabang = $_POST['id_cabang'];
             $id_barang = $_POST['id_barang'];
             $tujuan    = $_POST['tujuan_barang'];
             $jumlah    = $_POST['jumlah'];
@@ -55,6 +57,7 @@ class CabangBarangKeluarController {
             // echo $jumlah;
 
             $result = $this->barangModel->editKeluar($id_keluar, [
+                'id_cabang'     => $id_cabang,
                 'id_barang'     => $id_barang,
                 'tujuan_barang' => $tujuan,
                 'jumlah'        => $jumlah
