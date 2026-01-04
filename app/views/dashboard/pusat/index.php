@@ -17,7 +17,6 @@
                 </tr>
             </thead>
 
-            <!-- INI BARU BENAR -->
             <tbody>
             <?php if (!empty($cabang)): ?>
                 <?php foreach ($cabang as $row): ?>
