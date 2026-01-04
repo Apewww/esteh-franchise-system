@@ -50,4 +50,10 @@ class KaryawanModel extends Model {
         ]);
     }
 
+    public function delete($id) {
+    $sql = "DELETE FROM karyawan WHERE id_karyawan = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    }
 }
