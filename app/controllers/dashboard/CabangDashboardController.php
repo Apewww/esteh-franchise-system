@@ -38,8 +38,9 @@ class CabangDashboardController {
 
         $nama  = $_POST['nama_produk'];
         $harga = $_POST['harga'];
+        $id_cabang = $_SESSION['id_cabang'];
 
-        $id_produk = $this->produkModel->insertProduk($nama, $harga);
+        $id_produk = $this->produkModel->insertProduk($nama, $harga, $id_cabang);
 
         if (!empty($_FILES['gambar']['name'])) {
 

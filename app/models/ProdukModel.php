@@ -10,10 +10,10 @@ class ProdukModel extends Model {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function insertProduk($nama, $harga) {
-        $sql = "INSERT INTO produk (nama_produk, harga) VALUES (?, ?)";
+    public function insertProduk($nama, $harga, $id_cabang) {
+        $sql = "INSERT INTO produk (id_cabang, nama_produk, harga) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$nama, $harga]);
+        $stmt->execute([$id_cabang, $nama, $harga]);
 
         return $this->db->lastInsertId();
     }
