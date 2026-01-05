@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../RenderViewController.php';
-require_once __DIR__ . '/../../models/PusatBarangModel.php';
+require_once __DIR__ . '/../../models/BarangMasukModel.php';
 
 class PusatBarangMasukController {
     private $render;
@@ -9,12 +9,12 @@ class PusatBarangMasukController {
 
     public function __construct() {
         $this->render = new RenderViewController();
-        $this->barangModel = new PusatBarangModel();
+        $this->barangModel = new BarangModel();
     }
 
     public function index() {
         $data['title'] = 'Barang Masuk';
-        $data['role'] = 'Franchisor';
+        $data['role'] = $_SESSION['role'];
         $data['barangMasuk'] = $this->barangModel->getAllBarangMasuk();
 
         $this->render->render('barang/pusat/masuk/index', $data);

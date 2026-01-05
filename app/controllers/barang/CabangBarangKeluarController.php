@@ -1,51 +1,111 @@
 <?php
 
 require_once __DIR__ . '/../RenderViewController.php';
-require_once __DIR__ . '/../../models/PusatBarangModel.php';
+require_once __DIR__ . '/../../models/BarangKeluarModel.php';
+require_once __DIR__ . '/../../models/CabangModel.php';
+require_once __DIR__ . '/../../models/BarangModel.php';
 
-class CabangBarangMasukController {
+class CabangBarangKeluarController {
     private $render;
+    private $barangKeluarModel;
+    private $cabangModel;
     private $barangModel;
 
-    public function __construct() {
+    public function  __construct() {
         $this->render = new RenderViewController();
-        $this->barangModel = new PusatBarangModel();
+        $this->barangKeluarModel = new BarangKeluarModel();
+        $this->cabangModel = new CabangModel();
+        $this->barangModel = new BarangModel();
     }
 
     public function index() {
-        $data['title'] = 'Barang Masuk';
+        $data['title'] = "Manajemen Barang Keluar";
+        $data['role'] = $_SESSION['role'];
+        $data['barang_keluar'] = $this->barangKeluarModel->getAllKeluar($_SESSION['id_cabang']);
+        $data['cabang'] = $this->cabangModel->getAll();
+
+
+        $this->render->render('barang/cabang/keluar/index', $data);
+    }
+
+    public function getBarangByCabang($id_cabang)
+    {
+        header('Content-Type: application/json');
+
+        $barang = $this->barangModel->getBarangByCabang($id_cabang);
+
+        // Pastikan $barang adalah array
+        echo json_encode($barang);
+        exit;
+    }
+
+
+
+    public function addBarangkeluar() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id_barang = $_POST['id_barang'];
+            $id_cabang = $_POST['id_cabang'];
+            $tujuan = $_POST['tujuan_barang'];
+            $jumlah = $_POST['jumlah'];
+
+            if ($this->barangKeluarModel->tambahKeluar($id_cabang, $id_barang, $tujuan, $jumlah)) {
+                header('Location: /barang/cabang/keluar');
+            }
+        }
+    }
+
+    public function editIndex($id_keluar) {
+        $data['title'] = "Manajemen Barang Keluar";
         $data['role'] = 'Karyawan';
-        $data['barangMasuk'] = $this->barangModel->getAllBarangMasuk();
-        $this->render->render('barang/cabang/masuk/index', $data);
+        $data['barang_keluar'] = $this->barangKeluarModel->getKeluarById($id_keluar);
+        $data['cabang'] = $this->cabangModel->getAll();
+        $data['barang'] = $this->barangModel->getBarangByCabang($data['barang_keluar']['id_cabang']);
+
+
+        $this->render->render('barang/cabang/keluar/edit', $data);
     }
 
-    public function tambah($postData) {
-        $data = [
-            'tanggal' => $postData['tanggal_masuk'],
-            'id_barang' => $postData['id_barang'],
-            'jumlah' => $postData['jumlah'],
-            'sumber' => $postData['sumber_barang']
-        ];
-        $this->barangModel->tambah($data);
-        header("Location: /barang/cabang/masuk");
-        exit();
+    public function editProssesBarangkeluar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $id_keluar = $_POST['id_keluar'];
+            $id_cabang = $_SESSION['id_cabang'];
+            $id_barang = $_POST['id_barang'];
+            $tujuan    = $_POST['tujuan_barang'];
+            $jumlah    = $_POST['jumlah'];
+
+            // echo $id_keluar;
+            // echo $id_barang;
+            // echo $tujuan;
+            // echo $jumlah;
+
+            $result = $this->barangKeluarModel->editKeluar($id_keluar, [
+                'id_cabang'     => $id_cabang,
+                'id_barang'     => $id_barang,
+                'tujuan_barang' => $tujuan,
+                'jumlah'        => $jumlah
+            ]);
+
+            if ($result) {
+                header('Location: /barang/cabang/keluar');
+                exit;
+            } else {
+                echo "Gagal mengupdate data";
+            }
+        }
     }
 
-    public function edit($id, $postData) {
-        $data = [
-            'tanggal' => $postData['tanggal_masuk'],
-            'id_barang' => $postData['id_barang'],
-            'jumlah' => $postData['jumlah'],
-            'sumber' => $postData['sumber_barang']
-        ];
-        $this->barangModel->update($id, $data);
-        header("Location: /barang/cabang/masuk");
-        exit();
+    public function deleteBarangkeluar($id_keluar) {
+        $result = $this->barangKeluarModel->deleteKeluar($id_keluar);
+        if ($result) {
+            header('Location: /barang/cabang/keluar');
+            exit;
+        } else {
+            echo "Gagal mengupdate data";
+        }
     }
 
-    public function hapus($id) {
-        $this->barangModel->hapus($id);
-        header("Location: /barang/cabang/masuk");
-        exit();
-    }
+
 }
+?>

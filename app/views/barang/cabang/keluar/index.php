@@ -1,6 +1,6 @@
 <form action="/barang/cabang/keluar/add" method="POST" class="mb-4">
     <div class="row">
-        <input type="text" name="id_barang" class="form-control" placeholder="ID Barang" required hidden>
+        <input type="text" name="id_cabang" class="form-control" placeholder="ID Cabang" value="<?= $_SESSION['id_cabang'] ?>" hidden>
         <div class="col"><input type="text" name="id_barang" class="form-control" placeholder="ID Barang" required></div>
         <div class="col"><input type="text" name="tujuan_barang" class="form-control" placeholder="Tujuan" required></div>
         <div class="col"><input type="number" name="jumlah" class="form-control" placeholder="Jumlah" required></div>

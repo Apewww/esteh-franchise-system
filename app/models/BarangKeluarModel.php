@@ -3,9 +3,9 @@ require_once 'Model.php'; // Load base model
 
 class BarangKeluarModel extends Model {
     
-    public function getAllKeluar() {
-        $stmt = $this->db->prepare("SELECT * FROM barang_keluar WHERE deleted != 1");
-        $stmt->execute();
+    public function getAllKeluar($id_cabang) {
+        $stmt = $this->db->prepare("SELECT * FROM barang_keluar WHERE deleted != 1 AND id_cabang = ?");
+        $stmt->execute([$id_cabang]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

@@ -28,6 +28,7 @@ require_once BASE_PATH . '/routes/karyawan/CabangKaryawan.php';
 require_once BASE_PATH . '/routes/barang/CabangDasboard.php';
 require_once BASE_PATH . '/routes/barang/PusatDashboard.php';
 require_once BASE_PATH . '/routes/barang/PusatKeluar.php';
+require_once BASE_PATH . '/routes/barang/CabangKeluar.php';
 require_once BASE_PATH . '/routes/barang/PusatMasuk.php';
 require_once BASE_PATH . '/routes/transaksi/CabangTransaksi.php';
 require_once BASE_PATH . '/routes/transaksi/PusatTransaksi.php';
