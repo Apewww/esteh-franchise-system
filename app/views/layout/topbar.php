@@ -10,7 +10,6 @@
     </div>
 
     <div class="d-flex align-items-center gap-3 ms-auto">
-        <button class="btn btn-light btn-add">Tambah</button>
         <div class="avatar"></div>
     </div>
 </div>
