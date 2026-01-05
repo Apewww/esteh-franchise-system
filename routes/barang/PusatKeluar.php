@@ -20,4 +20,10 @@ switch($uri) {
         require BASE_PATH . '/app/controllers/barang/PusatBarangKeluarController.php';
         (new PusatBarangKeluarController)->deleteBarangkeluar($matches[1]);
         exit;
+    case (preg_match('#^barang/get-by-cabang/(\d+)$#', $uri, $m) ? true : false):
+        require BASE_PATH . '/app/controllers/barang/PusatBarangKeluarController.php';
+        (new PusatBarangKeluarController)->getBarangByCabang($m[1]);
+        exit;
+
+
 }

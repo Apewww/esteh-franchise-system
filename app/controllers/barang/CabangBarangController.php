@@ -19,7 +19,7 @@ class CabangBarangController
     {
         $id_cabang = $_SESSION['id_cabang'] ?? 1;
         $data['title'] = "Manajemen Barang Cabang";
-        $data['role'] = "Karyawan";
+        $data['role'] = $_SESSION['role'];
         $data['barang'] = $this->barangModel->getBarangByCabang($id_cabang);
 
         $this->render->render('barang/cabang/dashboard/index', $data);

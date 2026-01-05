@@ -3,17 +3,18 @@
 require_once __DIR__ . '/../RenderViewController.php';
 require_once __DIR__ . '/../../models/TransaksiModel.php';
 require_once __DIR__ . '/../../models/DetailTransaksiModel.php';
-require_once __DIR__ . '/../../models/ProdukModel.php';
+require_once __DIR__ . '/../../models/TransaksiModel.php';
 
 class PusatTransaksiController {
     private $render;
     private $transaksi;
     private $detail;
+    private $produk;
 
     public function __construct(){                  
         $this->render = new RenderViewController();
         $this->transaksi = new TransaksiModel();
-        $this->produk = new ProdukModel();
+        $this->produk = new TransaksiModel();
         $this->detail = new DetailTransaksiModel();
     }
 
@@ -21,6 +22,7 @@ class PusatTransaksiController {
         $data = [];
         $data['title'] = 'Transaksi';
         $data['transaksi'] = $this->transaksi->getAllWithProduk();
+        $data['role'] = $_SESSION['role'];
 
         // 🔑 SAMA SEPERTI CABANG → tombol Tambah MUNCUL
         $data['addUrl'] = '/transaksi/pusat/tambah';
@@ -32,6 +34,7 @@ class PusatTransaksiController {
     {
         $data = [];
         $data['title'] = 'Tambah Transaksi';
+        $data['role'] = $_SESSION['role'];
 
         $this->render->render('transaksi/pusat/create', $data);
     }
@@ -91,4 +94,3 @@ class PusatTransaksiController {
         exit;
     }
 }
-

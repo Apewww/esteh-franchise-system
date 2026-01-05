@@ -7,6 +7,8 @@
             <form action="/barang/cabang/proses_edit" method="POST">
                 <input type="hidden" name="id_barang" value="<?= $data['barang']['id_barang']; ?>">
                 
+                <input type="text" name="id_cabang" class="form-control" value="<?= $_SESSION['id_cabang'] ?>" required hidden>
+                
                 <div class="mb-3">
                     <label class="form-label font-weight-bold">Nama Barang</label>
                     <input type="text" name="nama_barang" class="form-control" value="<?= htmlspecialchars($data['barang']['nama_barang']); ?>" required>

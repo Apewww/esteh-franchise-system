@@ -4,31 +4,40 @@
     <div class="card shadow-sm">
         <div class="card-body">
 
-            <form method="POST" action="/barang/cabang/keluar/editProsses">
+            <form method="POST" action="/barang/pusat/keluar/editProsses">
 
                 <!-- ID Keluar (hidden, wajib) -->
                 <input type="hidden" name="id_keluar" value="<?= $barang_keluar['id_keluar']; ?>">
 
-
                 <!-- ID Barang -->
                 <div class="mb-3">
-                    <label class="form-label">ID Cabang</label>
-                    <input type="text"
-                           name="id_barang"
-                           class="form-control"
-                           value="<?= $barang_keluar['id_cabang']; ?>"
-                           required>
+                    <select name="id_cabang" id="id_cabang" class="form-control" required>
+                        <option value="">-- Pilih Cabang --</option>
+                
+                        <?php foreach ($data['cabang'] as $cabang): ?>
+                            <option value="<?= $cabang['id_cabang']; ?>"
+                                <?= ($data['barang_keluar']['id_cabang'] == $cabang['id_cabang']) ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($cabang['nama_cabang']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                        
+                    </select>
                 </div>
 
 
                 <!-- ID Barang -->
                 <div class="mb-3">
-                    <label class="form-label">ID Barang</label>
-                    <input type="text"
-                           name="id_barang"
-                           class="form-control"
-                           value="<?= $barang_keluar['id_barang']; ?>"
-                           required>
+                    <label class="form-label">Barang</label>
+                    <select name="id_barang" id="id_barang" class="form-control" required>
+                        <option value="">-- Pilih Barang --</option>
+                        <?php 
+                        foreach ($data['barang'] as $barang) : ?>
+                            <option value="<?= $barang['id_barang']; ?>" 
+                                <?= ($barang['id_barang'] == $barang_keluar['id_barang']) ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($barang['nama_barang']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <!-- Tujuan Barang -->
@@ -58,7 +67,7 @@
                         Simpan Perubahan
                     </button>
 
-                    <a href="/barang/cabang/keluar" class="btn btn-secondary">
+                    <a href="/barang/pusat/keluar" class="btn btn-secondary">
                         Kembali
                     </a>
                 </div>

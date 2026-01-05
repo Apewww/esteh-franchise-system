@@ -4,10 +4,7 @@
         <h5 class="mb-4">Manajemen Karyawan</h5>
 
         <!-- FORM TAMBAH DATA -->
-        <form method="post" class="row g-3 align-items-end mb-4">
-
-            <!-- penting: action create -->
-            <input type="hidden" name="action" value="create">
+        <form method="POST" action="/karyawan/cabang/add" class="row g-3 align-items-end mb-4">
 
             <div class="col-md-3">
                 <input type="text" name="nama_karyawan"
@@ -16,16 +13,13 @@
             </div>
 
             <div class="col-md-3">
-                <input type="text" name="jabatan"
-                       class="form-control"
-                       placeholder="Jabatan" required>
+                <select class="form-control" disabled>
+                    <option value="Karyawan" selected>Karyawan</option>
+                </select>
+                <input type="hidden" name="jabatan" value="Karyawan">
             </div>
 
-            <div class="col-md-3">
-                <input type="text" name="id_cabang"
-                       class="form-control"
-                       placeholder="Cabang" value="1" required>
-            </div>
+            <input type="text" name="id_cabang" class="form-control" placeholder="Cabang" value="<?= $_SESSION['id_cabang'] ?>" required hidden>
 
             <div class="col-md-3">
                 <button type="submit" class="btn btn-primary w-100">
@@ -56,28 +50,19 @@
                             <td><?= $t['nama_karyawan']; ?></td>
                             <td><?= $t['jabatan']; ?></td>
                             <td><?= $t['id_cabang']; ?></td>
-                            <td>
+                                                        <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="/karyawan/cabang/editIndex/<?= $t['id_karyawan']; ?>"
+                                       class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
 
-                                <!-- EDIT -->
-                                <form method="post" style="display:inline">
-                                    <input type="hidden" name="action" value="update">
-                                    <input type="hidden" name="id_karyawan" value="<?= $t['id_karyawan']; ?>">
-                                    <input type="hidden" name="nama_karyawan" value="<?= $t['nama_karyawan']; ?>">
-                                    <input type="hidden" name="jabatan" value="<?= $t['jabatan']; ?>">
-                                    <input type="hidden" name="id_cabang" value="<?= $t['id_cabang']; ?>">
-                                    <button class="btn btn-warning btn-sm">Edit</button>
-                                </form>
-
-                                <!-- DELETE -->
-                                <form method="post" style="display:inline">
-                                    <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="id_karyawan" value="<?= $t['id_karyawan']; ?>">
-                                    <button class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Hapus data ini?')">
-                                        Hapus
-                                    </button>
-                                </form>
-
+                                    <a href="/karyawan/cabang/delete/<?= $t['id_karyawan']; ?>"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                        Delete
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>

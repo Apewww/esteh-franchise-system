@@ -47,13 +47,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="text" name="id_cabang" class="form-control" value="<?= $_SESSION['id_cabang'] ?>" hidden>
                     <div class="mb-3">
                         <label>Nama Barang</label>
                         <input type="text" name="nama_barang" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label>Satuan</label>
-                        <input type="text" name="satuan" class="form-control" placeholder="Pcs/Box/Liter" required>
+                        <input type="text" name="satuan" class="form-control" placeholder="Kg" required>
                     </div>
                     <div class="mb-3">
                         <label>Stok Awal</label>

@@ -12,51 +12,22 @@ class CabangKaryawanController {
     }
 
     public function index() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-            $action = $_POST['action'] ?? '';
-
-        if (isset($_POST['action']) && $_POST['action'] === 'create') {
-            $this->karyawanModel->insert([
-                'nama_karyawan' => $_POST['nama_karyawan'],
-                'jabatan'       => $_POST['jabatan'],
-                'id_cabang'     => $_POST['id_cabang']
-            ]);
-        }
-
-        if (isset($_POST['action']) && $_POST['action'] === 'update') {
-            $this->karyawanModel->update(
-                $_POST['id_karyawan'],
-                $_POST
-            );
-        }
-
-        if (isset($_POST['action']) && $_POST['action'] === 'delete') {
-            $this->karyawanModel->delete($_POST['id_karyawan']);
-        }
-
-            header('Location: /karyawan/cabang');
-            exit;
-        }
-
         $data['title'] = 'Manajemen Karyawan';
-        $data['role'] = 'Owner';
-        $data['karyawan'] = $this->karyawanModel->getKaryawanByCabang(1);
+        $data['role'] = $_SESSION['role'];
+        $data['karyawan'] = $this->karyawanModel->getKaryawanByCabang($_SESSION['id_cabang']);
 
         $this->render->render('karyawan/cabang/index', $data);
     }
 
-    public function create() {
-        $data['title'] = 'Tambah Karyawan Cabang';
-        $data['role']  = 'Owner';
-
-        // kalau cabang aktif = 2
-        $data['id_cabang'] = 2;
-
-        $this->render->render('karyawan/cabang/tambah', $data);
+    public function editIndex($id_karyawan) {
+        $data['title'] = 'Manajemen Karyawan';
+        $data['role'] = $_SESSION['role'];
+        $data['karyawan'] = $this->karyawanModel->getById($id_karyawan);
+        
+        $this->render->render('karyawan/cabang/edit', $data);
     }
 
-    public function store() {
+    public function add() {
     // pastikan request POST
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header('Location: /karyawan/cabang');
@@ -74,20 +45,49 @@ class CabangKaryawanController {
     }
 
     // simpan ke database
-    $this->karyawanModel->insert([
+    $result = $this->karyawanModel->insert([
         'nama_karyawan' => $_POST['nama_karyawan'],
         'jabatan'       => $_POST['jabatan'],
         'id_cabang'     => $_POST['id_cabang']
     ]);
 
     // kembali ke halaman utama
-    header('Location: /karyawan/cabang');
-    exit;
+    if($result) {
+        header('Location: /karyawan/cabang');
+        exit;
+    } else {
+        echo "Terjadi kesalahan!";
+        exit;
+    }
+    }
+
+    public function editProsses() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Ambil data dari POST
+            $id_karyawan = $_POST['id_karyawan'];
+            $data = [
+                'id_cabang'     => $_POST['id_cabang'],
+                'nama_karyawan' => $_POST['nama_karyawan'],
+                'jabatan'       => $_POST['jabatan']
+            ];
+
+        // Memanggil model
+        $result = $this->karyawanModel->update($id_karyawan, $data);
+
+        if ($result) {
+            // Jika berhasil, redirect
+            header('Location: /karyawan/cabang');
+            exit;
+        } else {
+            // Jika gagal
+            echo "Gagal mengupdate data. Silakan cek koneksi database atau query Anda.";
+        }
+    }
     }
 
     public function delete($id) {
-    $this->karyawanModel->delete($id);
-    header('Location: /karyawan/cabang');
-    exit;
+        $this->karyawanModel->delete($id);
+        header('Location: /karyawan/cabang');
+        exit;
     }
 }       

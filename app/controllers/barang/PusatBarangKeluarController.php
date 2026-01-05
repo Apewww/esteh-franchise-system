@@ -2,23 +2,43 @@
 
 require_once __DIR__ . '/../RenderViewController.php';
 require_once __DIR__ . '/../../models/BarangKeluarModel.php';
+require_once __DIR__ . '/../../models/CabangModel.php';
+require_once __DIR__ . '/../../models/BarangModel.php';
 
 class PusatBarangKeluarController {
     private $render;
+    private $barangKeluarModel;
+    private $cabangModel;
     private $barangModel;
 
     public function  __construct() {
         $this->render = new RenderViewController();
+        $this->barangKeluarModel = new BarangKeluarModel();
+        $this->cabangModel = new CabangModel();
         $this->barangModel = new BarangModel();
     }
 
     public function index() {
         $data['title'] = "Manajemen Barang Keluar";
-        $data['role'] = 'Franchisor';
-        $data['barang_keluar'] = $this->barangModel->getAllKeluarPusat();
+        $data['role'] = $_SESSION['role'];
+        $data['barang_keluar'] = $this->barangKeluarModel->getAllKeluarPusat();
+        $data['cabang'] = $this->cabangModel->getAll();
 
         $this->render->render('barang/pusat/keluar/index', $data);
     }
+
+    public function getBarangByCabang($id_cabang)
+    {
+        header('Content-Type: application/json');
+
+        $barang = $this->barangModel->getBarangByCabang($id_cabang);
+
+        // Pastikan $barang adalah array
+        echo json_encode($barang);
+        exit;
+    }
+
+
 
     public function addBarangkeluar() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -27,7 +47,7 @@ class PusatBarangKeluarController {
             $tujuan = $_POST['tujuan_barang'];
             $jumlah = $_POST['jumlah'];
 
-            if ($this->barangModel->tambahKeluar($id_cabang, $id_barang, $tujuan, $jumlah)) {
+            if ($this->barangKeluarModel->tambahKeluar($id_cabang, $id_barang, $tujuan, $jumlah)) {
                 header('Location: /barang/pusat/keluar');
             }
         }
@@ -36,7 +56,10 @@ class PusatBarangKeluarController {
     public function editIndex($id_keluar) {
         $data['title'] = "Manajemen Barang Keluar";
         $data['role'] = 'Karyawan';
-        $data['barang_keluar'] = $this->barangModel->getKeluarById($id_keluar);
+        $data['barang_keluar'] = $this->barangKeluarModel->getKeluarById($id_keluar);
+        $data['cabang'] = $this->cabangModel->getAll();
+        $data['barang'] = $this->barangModel->getBarangByCabang($data['barang_keluar']['id_cabang']);
+
 
         $this->render->render('barang/pusat/keluar/edit', $data);
     }
@@ -46,6 +69,7 @@ class PusatBarangKeluarController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $id_keluar = $_POST['id_keluar'];
+            $id_cabang = $_POST['id_cabang'];
             $id_barang = $_POST['id_barang'];
             $tujuan    = $_POST['tujuan_barang'];
             $jumlah    = $_POST['jumlah'];
@@ -55,7 +79,8 @@ class PusatBarangKeluarController {
             // echo $tujuan;
             // echo $jumlah;
 
-            $result = $this->barangModel->editKeluar($id_keluar, [
+            $result = $this->barangKeluarModel->editKeluar($id_keluar, [
+                'id_cabang'     => $id_cabang,
                 'id_barang'     => $id_barang,
                 'tujuan_barang' => $tujuan,
                 'jumlah'        => $jumlah
@@ -71,7 +96,7 @@ class PusatBarangKeluarController {
     }
 
     public function deleteBarangkeluar($id_keluar) {
-        $result = $this->barangModel->deleteKeluar($id_keluar);
+        $result = $this->barangKeluarModel->deleteKeluar($id_keluar);
         if ($result) {
             header('Location: /barang/pusat/keluar');
             exit;

@@ -20,7 +20,7 @@
                         <?php $no = 1; foreach ($data['barang'] as $row) : ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td class="text-start"><?= htmlspecialchars($row['nama_barang']); ?></td>
+                                <td class="text-center"><?= htmlspecialchars($row['nama_barang']); ?></td>
                                 <td><?= htmlspecialchars($row['satuan']); ?></td>
                                 <td><strong><?= htmlspecialchars($row['stok']); ?></strong></td>
                                 <td>
@@ -50,12 +50,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label class="form-label font-weight-bold">Cabang</label>
+                        <select name="id_cabang" id="id_cabang" class="form-control" required>
+                            <option value="">-- Pilih Cabang --</option>
+                            <?php foreach ($data['cabang'] as $cabang): ?>
+                                <option value="<?= $cabang['id_cabang']; ?>">
+                                    <?= htmlspecialchars($cabang['nama_cabang']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label font-weight-bold">Nama Barang</label>
                         <input type="text" name="nama_barang" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label font-weight-bold">Satuan</label>
-                        <input type="text" name="satuan" class="form-control" placeholder="Pcs/Box/Liter" required>
+                        <input type="text" name="satuan" class="form-control" placeholder="Kg" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label font-weight-bold">Stok Awal Pusat</label>

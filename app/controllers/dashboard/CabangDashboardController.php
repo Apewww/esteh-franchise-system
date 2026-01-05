@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../../RenderViewController.php';
-require_once __DIR__ . '/../../../models/ProdukModel.php';
+require_once __DIR__ . '/../RenderViewController.php';
+require_once __DIR__ . '/../../models/ProdukModel.php';
 
 class CabangDashboardController {
     private $render;
@@ -14,7 +14,7 @@ class CabangDashboardController {
 
     public function index() {
         $data['title'] = "Produk";
-        $data['role'] = "Karyawan";
+        $data['role'] = $_SESSION['role'];
         $data['produk'] = $this->produkModel->getAllProduk();
 
         $this->render->render('dashboard/cabang/index', $data);
@@ -22,7 +22,7 @@ class CabangDashboardController {
 
     public function addProduk() {
         $data['title'] = "Produk";
-        $data['role'] = 'Karyawan';
+        $data['role'] = $_SESSION['role'];
 
         $this->render->render('dashboard/cabang/add', $data);
     }
@@ -34,7 +34,7 @@ class CabangDashboardController {
             exit;
         }
 
-        echo "halo";
+        // echo "halo";
 
         $nama  = $_POST['nama_produk'];
         $harga = $_POST['harga'];

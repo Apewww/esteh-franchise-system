@@ -5,17 +5,17 @@ require_once __DIR__ . '/../../models/BarangKeluarModel.php';
 
 class CabangBarangKeluarController {
     private $render;
-    private $barangModel;
+    private $barangKeluarModel;
 
     public function  __construct() {
         $this->render = new RenderViewController();
-        $this->barangModel = new BarangModel();
+        $this->barangKeluarModel = new BarangKeluarModel();
     }
 
     public function index() {
         $data['title'] = "Manajemen Barang Keluar";
-        $data['role'] = 'Karyawan';
-        $data['barang_keluar'] = $this->barangModel->getAllKeluar();
+        $data['role'] = $_SESSION['role'];
+        $data['barang_keluar'] = $this->barangKeluarModel->getAllKeluar();
 
         $this->render->render('barang/cabang/keluar/index', $data);
     }
@@ -27,7 +27,7 @@ class CabangBarangKeluarController {
             $tujuan = $_POST['tujuan_barang'];
             $jumlah = $_POST['jumlah'];
 
-            if ($this->barangModel->tambahKeluar($id_cabang, $id_barang, $tujuan, $jumlah)) {
+            if ($this->barangKeluarModel->tambahKeluar($id_cabang, $id_barang, $tujuan, $jumlah)) {
                 header('Location: /barang/cabang/keluar');
             }
         }
@@ -36,7 +36,7 @@ class CabangBarangKeluarController {
     public function editIndex($id_keluar) {
         $data['title'] = "Manajemen Barang Keluar";
         $data['role'] = 'Karyawan';
-        $data['barang_keluar'] = $this->barangModel->getKeluarById($id_keluar);
+        $data['barang_keluar'] = $this->barangKeluarModel->getKeluarById($id_keluar);
 
         $this->render->render('barang/cabang/keluar/edit', $data);
     }
@@ -56,7 +56,7 @@ class CabangBarangKeluarController {
             // echo $tujuan;
             // echo $jumlah;
 
-            $result = $this->barangModel->editKeluar($id_keluar, [
+            $result = $this->barangKeluarModel->editKeluar($id_keluar, [
                 'id_cabang'     => $id_cabang,
                 'id_barang'     => $id_barang,
                 'tujuan_barang' => $tujuan,
@@ -73,7 +73,7 @@ class CabangBarangKeluarController {
     }
 
     public function deleteBarangkeluar($id_keluar) {
-        $result = $this->barangModel->deleteKeluar($id_keluar);
+        $result = $this->barangKeluarModel->deleteKeluar($id_keluar);
         if ($result) {
             header('Location: /barang/cabang/keluar');
             exit;

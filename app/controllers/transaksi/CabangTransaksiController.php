@@ -3,19 +3,20 @@
 require_once __DIR__ . '/../RenderViewController.php';
 require_once __DIR__ . '/../../models/TransaksiModel.php';
 require_once __DIR__ . '/../../models/DetailTransaksiModel.php';
-require_once __DIR__ . '/../../models/ProdukModel.php';
+require_once __DIR__ . '/../../models/TransaksiModel.php';
 
 class CabangTransaksiController             //Deklarasi Class & Properti
 {
     private $render;
     private $transaksi;
     private $detail;
+    private $produk;
 
     public function __construct()
     {
         $this->render = new RenderViewController();
         $this->transaksi = new TransaksiModel();
-        $this->produk = new ProdukModel();
+        $this->produk = new TransaksiModel();
         $this->detail = new DetailTransaksiModel();
     }
 

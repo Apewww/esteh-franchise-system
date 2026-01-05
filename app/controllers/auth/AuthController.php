@@ -88,9 +88,9 @@ class AuthController
 
         // ================= REDIRECT DASHBOARD =================
         // Jika role pusat, masuk ke dashboard pusat
-        if ($user['role'] === 'pusat') {
+        if ($user['role'] === 'Franchisor') {
             header('Location: /dashboard/pusat');
-        } 
+        }
         // Jika role cabang, masuk ke dashboard cabang
         else {
             header('Location: /dashboard/cabang');

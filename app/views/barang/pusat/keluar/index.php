@@ -1,12 +1,49 @@
-<form action="/barang/cabang/keluar/add" method="POST" class="mb-4">
-    <div class="row">
-        <div class="col"><input type="text" name="id_cabang" class="form-control" placeholder="ID Cabang" required></div>
-        <div class="col"><input type="text" name="id_barang" class="form-control" placeholder="ID Barang" required></div>
-        <div class="col"><input type="text" name="tujuan_barang" class="form-control" placeholder="Tujuan" required></div>
-        <div class="col"><input type="number" name="jumlah" class="form-control" placeholder="Jumlah" required></div>
-        <div class="col"><button type="submit" class="btn btn-primary">Tambah Data</button></div>
+<form action="/barang/pusat/keluar/add" method="POST" class="mb-4">
+    <div class="row g-2 align-items-center">
+
+        <div class="col-md-3">
+            <select name="id_cabang" id="id_cabang" class="form-control" required>
+                <option value="">-- Pilih Cabang --</option>
+                <?php foreach ($data['cabang'] as $c) : ?>
+                    <option value="<?= $c['id_cabang']; ?>">
+                        <?= $c['nama_cabang']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select name="id_barang" id="id_barang" class="form-control" required>
+                <option value="">-- Pilih Barang --</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <input type="text"
+                   name="tujuan_barang"
+                   class="form-control"
+                   placeholder="Tujuan"
+                   required>
+        </div>
+
+        <div class="col-md-2">
+            <input type="number"
+                   name="jumlah"
+                   class="form-control"
+                   placeholder="Jumlah"
+                   min="1"
+                   required>
+        </div>
+
+        <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-primary">
+                Tambah Data
+            </button>
+        </div>
+
     </div>
 </form>
+
 
 <div class="card card-custom">
     <div class="card-body">
@@ -14,8 +51,8 @@
             <thead>
                 <tr>
                     <th>ID Keluar</th>
-                    <th>ID Cabang</th>
-                    <th>ID Barang</th>
+                    <th>Cabang</th>
+                    <th>Barang</th>
                     <th>Tujuan</th>
                     <th>Jumlah</th>
                     <th>Action</th>
@@ -26,13 +63,13 @@
                     <?php foreach ($data['barang_keluar'] as $row) : ?>
                         <tr>
                             <td><?= $row['id_keluar']; ?></td>
-                            <td><?= $row['id_cabang']; ?></td>
-                            <td><?= $row['id_barang']; ?></td>
+                            <td><?= $row['nama_cabang']; ?></td>
+                            <td><?= $row['nama_barang']; ?></td>
                             <td><?= $row['tujuan_barang']; ?></td>
                             <td><?= $row['jumlah']; ?></td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="/barang/cabang/keluar/edit/<?= $row['id_keluar']; ?>"
+                                    <a href="/barang/pusat/keluar/edit/<?= $row['id_keluar']; ?>"
                                        class="btn btn-warning btn-sm">
                                         Edit
                                     </a>

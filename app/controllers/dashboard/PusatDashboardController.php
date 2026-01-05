@@ -37,7 +37,7 @@ class PusatDashboardController
 
         // ================= PROTEKSI ROLE =================
         // Jika user bukan role pusat, arahkan ke dashboard cabang
-        if ($_SESSION['role'] !== 'pusat') {
+        if ($_SESSION['role'] !== 'Franchisor') {
             header('Location: /dashboard/cabang');
             exit;
         }

@@ -25,30 +25,36 @@ class KaryawanModel extends Model {
     // tambah karyawan
     public function insert($data) {
         $sql = "INSERT INTO karyawan (nama_karyawan, jabatan, id_cabang)
-                VALUES (:nama, :jabatan, :cabang)";
+                VALUES (:nama_karyawan, :jabatan, :id_cabang)";
+        
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':nama'    => $data['nama_karyawan'],
-            ':jabatan' => $data['jabatan'],
-            ':cabang'  => $data['id_cabang']
+        
+        return $stmt->execute([
+            ':nama_karyawan' => $data['nama_karyawan'],
+            ':jabatan'       => $data['jabatan'],
+            ':id_cabang'     => $data['id_cabang']
         ]);
     }
 
+
     // update karyawan
     public function update($id, $data) {
-        $sql = "UPDATE karyawan 
-                SET nama_karyawan = :nama,
-                    jabatan = :jabatan,
-                    id_cabang = :cabang
-                WHERE id_karyawan = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':nama'    => $data['nama_karyawan'],
-            ':jabatan' => $data['jabatan'],
-            ':cabang'  => $data['id_cabang'],
-            ':id'      => $id
-        ]);
-    }
+    $sql = "UPDATE karyawan 
+            SET nama_karyawan = :nama,
+                jabatan = :jabatan,
+                id_cabang = :cabang
+            WHERE id_karyawan = :id";
+            
+    $stmt = $this->db->prepare($sql);
+    
+    // Kembalikan hasil eksekusi (true jika berhasil, false jika gagal)
+    return $stmt->execute([
+        ':nama'    => $data['nama_karyawan'],
+        ':jabatan' => $data['jabatan'],
+        ':cabang'  => $data['id_cabang'],
+        ':id'      => $id
+    ]);
+}
 
     public function delete($id) {
     $sql = "DELETE FROM karyawan WHERE id_karyawan = :id";
